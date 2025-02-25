@@ -49,7 +49,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'Jenkins-postman',
+                reportDir: '',
                 reportFiles: 'html-report.html',
                 reportName: 'Newman HTML Report'
             ])
