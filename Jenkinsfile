@@ -47,6 +47,8 @@ pipeline {
 
     post {
         always {
+            echo 'Checking if the newman directory exists...'
+            sh 'ls -lah newman || echo "Newman directory not found!"'
             echo 'Publishing HTML Report...'
             publishHTML(target: [
                 allowMissing: false,
