@@ -29,8 +29,10 @@ pipeline {
                         script: '''
                         newman run "Postman Collections/PostmanCollectionByTestersTalk.json" \
                         -e "Postman Collections/Booking API.postman_environment.json" \
-                        --reporters cli,junit \
-                        --reporter-junit-export results.xml
+                        -r htmlextra \
+                        --reporters cli,junit,html \
+                        --reporter-junit-export results.xml \
+                        --reporter-html-export newman/api-test-report.html
                         ''',
                         returnStatus: true // Capture exit code instead of failing pipeline
                     )
@@ -44,9 +46,22 @@ pipeline {
     }
 
     post {
-        always { // Ensure this runs regardless of success or failure
-            echo "Publishing test results..."
-            junit 'results.xml'
+        always {
+            echo 'Publishing HTML Report...'
+            publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'newman',
+                reportFiles: 'api-test-report.html',
+                reportName: 'API Test Report'
+            ])
         }
     }
+    // post {
+    //     always { // Ensure this runs regardless of success or failure
+    //         echo "Publishing test results..."
+    //         junit 'results.xml'
+    //     }
+    // }
 }
