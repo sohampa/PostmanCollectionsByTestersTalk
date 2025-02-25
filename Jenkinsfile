@@ -21,56 +21,41 @@ pipeline {
         //         }
         //     }
         // }
+        stages {
         stage('Run API Tests') {
             steps {
-                sh '''
-                newman run "Postman Collections/PostmanCollectionByTestersTalk.json" \
-                -e "Postman Collections/Booking API.postman_environment.json" \
-                --reporters cli,junit,htmlextra \
-                --reporter-junit-export results.xml \
-                --reporter-htmlextra-export newman/html-report.html
-                '''
-            }
-        }
- 
-        stage('Publish Test Results') {
-            steps {
-                junit 'results.xml'
-            }
-        }
-
-        stage('Publish HTML Report') {
-            steps {
-                publishHTML (target: [
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'newman',
-                    reportFiles: 'html-report.html',
-                    reportName: 'Newman HTML Report'
-                ])
+                script {
+                    // Run Newman and allow failures
+                    catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                        sh '''
+                        newman run "Postman Collections/PostmanCollectionByTestersTalk.json" \
+                        -e "Postman Collections/Booking API.postman_environment.json" \
+                        --reporters cli,junit,htmlextra \
+                        --reporter-junit-export results.xml \
+                        --reporter-htmlextra-export newman/html-report.html
+                        '''
+                    }
+                }
             }
         }
     }
 
-    // post {
-    //     always {
-    //         echo 'Checking if the newman directory exists...'
-    //         sh 'chmod -R 755 newman'
-    //         sh 'chown -R jenkins:jenkins newman || echo "Ignoring ownership change"'
-    //         sh 'ls -lah newman || echo "Newman directory not found!"'
-            
-    //         echo 'Publishing HTML Report...'
-    //         publishHTML(target: [
-    //             allowMissing: false,
-    //             alwaysLinkToLastBuild: true,
-    //             keepAll: true,
-    //             reportDir: 'newman',
-    //             reportFiles: 'api-test-report.html',
-    //             reportName: 'API Test Report'
-    //         ])
-    //     }
-    // }
+    post {
+        always {
+            // Ensure test results are published even if the build fails
+            junit 'results.xml'
+
+            // Ensure HTML report is always available
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'newman',
+                reportFiles: 'html-report.html',
+                reportName: 'Newman HTML Report'
+            ])
+        }
+    }
     // post {
     //     always { // Ensure this runs regardless of success or failure
     //         echo "Publishing test results..."
