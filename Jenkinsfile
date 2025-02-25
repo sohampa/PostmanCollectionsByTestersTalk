@@ -31,7 +31,7 @@ pipeline {
                         -e "Postman Collections/Booking API.postman_environment.json" \
                         --reporters cli,junit,htmlextra \
                         --reporter-junit-export results.xml \
-                        --reporter-htmlextra-export newman/html-report.html
+                        --reporter-htmlextra-export html-report.html
                         '''
                     }
                 }
@@ -49,7 +49,7 @@ pipeline {
                 allowMissing: false,
                 alwaysLinkToLastBuild: true,
                 keepAll: true,
-                reportDir: 'newman',
+                // reportDir: 'newman',
                 reportFiles: 'html-report.html',
                 reportName: 'Newman HTML Report'
             ])
