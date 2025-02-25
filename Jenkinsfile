@@ -24,6 +24,9 @@ pipeline {
         stage('Run API Tests') {
             steps {
                 script {
+                    // Ensure the newman directory exists
+                    sh 'mkdir -p newman'
+                    
                     // Run Newman and allow failures without stopping pipeline
                     def exitCode = sh(
                         script: '''
@@ -40,6 +43,9 @@ pipeline {
                     if (exitCode != 0) {
                         echo "Newman tests failed, but proceeding to publish reports."
                     }
+
+                    // Debugging: Check if report is created
+                    sh 'ls -lah newman'
                 }
             }
         }
@@ -49,6 +55,7 @@ pipeline {
         always {
             echo 'Checking if the newman directory exists...'
             sh 'ls -lah newman || echo "Newman directory not found!"'
+            
             echo 'Publishing HTML Report...'
             publishHTML(target: [
                 allowMissing: false,
