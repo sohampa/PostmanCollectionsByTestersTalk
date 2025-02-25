@@ -54,6 +54,8 @@ pipeline {
     post {
         always {
             echo 'Checking if the newman directory exists...'
+            sh 'chmod -R 755 newman'
+            sh 'chown -R jenkins:jenkins newman || echo "Ignoring ownership change"'
             sh 'ls -lah newman || echo "Newman directory not found!"'
             
             echo 'Publishing HTML Report...'
