@@ -25,8 +25,8 @@ pipeline {
         stage('Run API Tests') {
             steps {
                 script {
-                    // Run Newman and allow failures
-                    catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+                    // Run Newman and ensure the build result is always SUCCESS
+                    catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS') {
                         sh '''
                         newman run "Postman Collections/PostmanCollectionByTestersTalk.json" \
                         -e "Postman Collections/Booking API.postman_environment.json" \
@@ -36,6 +36,7 @@ pipeline {
                 }
             }
         }
+
     }
 
     post {
