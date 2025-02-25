@@ -38,19 +38,19 @@ pipeline {
         }
     }
 
-    //  post {
-    //     always {
-    //         // Publish the HTML report
-    //         publishHTML (target: [
-    //             allowMissing: false,
-    //             alwaysLinkToLastBuild: true,
-    //             keepAll: true,
-    //             reportDir: 'newman',
-    //             reportFiles: 'html-report.html',
-    //             reportName: 'Postman HTML Report'
-    //         ])
-    //     }
-    // }
+    post {
+        always {
+            // Publish the HTML report
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: 'newman',
+                reportFiles: 'html-report.html',
+                reportName: 'Newman HTML Report'
+            ])
+        }
+    }
     // post {
     //     always { // Ensure this runs regardless of success or failure
     //         echo "Publishing test results..."
