@@ -21,7 +21,6 @@ pipeline {
         //         }
         //     }
         // }
-        stages {
         stage('Run API Tests') {
             steps {
                 script {
