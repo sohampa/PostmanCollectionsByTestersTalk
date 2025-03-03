@@ -60,10 +60,10 @@ pipeline {
     //         ])
     //     }
     // }
-    // post {
-    //     always { // Ensure this runs regardless of success or failure
-    //         echo "Publishing test results..."
-    //         junit 'results.xml'
-    //     }
-    // }
+    post {
+        always { // Ensure this runs regardless of success or failure
+            echo "Publishing test results..."
+            junit 'results.xml'
+        }
+    }
 }
