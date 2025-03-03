@@ -10,7 +10,7 @@ pipeline {
                          sh '''
                          postman collection run "Postman Collections/PostmanCollectionByTestersTalk.json" \
                          -e "Postman Collections/Booking API.postman_environment.json" \
-                         --reporters junit --reporter-junit-export results.xml
+                         --reporters junit,html --reporter-junit-export results.xml --reporter-html-export newman/html-report.html
                          '''
                         }
                     }
