@@ -10,7 +10,7 @@ pipeline {
                          sh '''
                          postman collection run "Postman Collections/PostmanCollectionByTestersTalk.json" \
                          -e "Postman Collections/Booking API.postman_environment.json" \
-                         --reporters junit,html --reporter-junit-export results.xml --reporter-html-export newman/html-report.html
+                         --reporters junit,html --reporter-junit-export results.xml --reporter-html-export postman-report/result.html
                          '''
                         }
                     }
@@ -22,8 +22,8 @@ pipeline {
                         allowMissing: false,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
-                        reportDir: 'newman',
-                        reportFiles: 'html-report.html',
+                        reportDir: 'postman-report',
+                        reportFiles: 'result.html',
                         reportName: 'Postman API Test Report'
                     ])
                 }
