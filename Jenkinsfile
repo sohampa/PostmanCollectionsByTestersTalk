@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'soham-ec2' }
+    agent { label 'test-cli' }
 
     stages {
 
