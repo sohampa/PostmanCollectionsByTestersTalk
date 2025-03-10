@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'test-cli' }
+    agent { label 'soham-ec2' }
     tools {
         nodejs 'NodeJS' // Use Node.js plugin
     }
