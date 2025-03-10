@@ -1,32 +1,33 @@
 pipeline {
     agent { label 'soham-ec2' }
-    // tools {
-    //     nodejs 'NodeJS' // Use Node.js plugin
-    // }
+    tools {
+        nodejs 'NodeJS' // Use Node.js plugin
+    }
 
     // environment {
     //     PATH = "${tool 'NodeJS'}/bin:${env.PATH}" // Add Node.js to PATH
     // }
     environment {
         POSTMAN_CLI_PATH = "/usr/local/bin/postman" // Adjust path if needed
+        PATH = "${tool 'NodeJS'}/bin:${env.PATH}" // Add Node.js to PATH
     }
 
     stages {
 
-         stage('Install Postman CLI') {
-            steps {
-                script {
-                    sh '''
-                    if ! command -v postman &> /dev/null; then
-                        echo "Postman CLI not found. Installing..."
-                        curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
-                    else
-                        echo "Postman CLI is already installed."
-                    fi
-                    '''
-                }
-            }
-        }
+        //  stage('Install Postman CLI') {
+        //     steps {
+        //         script {
+        //             sh '''
+        //             if ! command -v postman &> /dev/null; then
+        //                 echo "Postman CLI not found. Installing..."
+        //                 curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+        //             else
+        //                 echo "Postman CLI is already installed."
+        //             fi
+        //             '''
+        //         }
+        //     }
+        // }
 
          stage('Run API Tests') {
              steps {
