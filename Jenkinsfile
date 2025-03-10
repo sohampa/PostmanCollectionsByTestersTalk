@@ -9,7 +9,7 @@ pipeline {
     // }
     environment {
         POSTMAN_CLI_PATH = "/usr/local/bin/postman" // Adjust path if needed
-        PATH = "${tool 'NodeJS'}/bin:${env.PATH}" // Add Node.js to PATH
+        // PATH = "${tool 'NodeJS'}/bin:${env.PATH}" // Add Node.js to PATH
     }
 
     stages {
