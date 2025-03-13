@@ -37,7 +37,7 @@ pipeline {
                             echo "Postman CLI is already installed: $(postman -v)"
                         else
                             echo "Postman CLI not found. Installing via npm..."
-                            npm install -g postman
+                            npm install postman
                         fi
                     '''
                      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
