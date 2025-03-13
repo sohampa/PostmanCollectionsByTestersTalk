@@ -33,12 +33,11 @@ pipeline {
              steps {
                  script {
                      sh '''
-                        if ! command -v postman &> /dev/null; then
-                            echo "Postman CLI not found. Installing via npm..."
-                            postman -v
-                            npm i postman-collection
+                        if command -v postman &> /dev/null; then
+                            echo "Postman CLI is already installed: $(postman -v)"
                         else
-                            echo "Postman CLI is already installed."
+                            echo "Postman CLI not found. Installing via npm..."
+                            npm install -g postman
                         fi
                     '''
                      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
