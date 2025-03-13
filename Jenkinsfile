@@ -1,16 +1,16 @@
 pipeline {
     agent { label 'soham-ec2' }
-    tools {
-        nodejs 'NodeJS' // Use Node.js plugin
-    }
+    // tools {
+    //     nodejs 'NodeJS' // Use Node.js plugin
+    // }
 
     // environment {
     //     PATH = "${tool 'NodeJS'}/bin:${env.PATH}" // Add Node.js to PATH
     // }
-    environment {
-        POSTMAN_CLI_PATH = "/usr/local/bin/postman" // Adjust path if needed
-        // PATH = "${tool 'NodeJS'}/bin:${env.PATH}" // Add Node.js to PATH
-    }
+    // environment {
+    //     POSTMAN_CLI_PATH = "/usr/local/bin/postman" // Adjust path if needed
+    //     // PATH = "${tool 'NodeJS'}/bin:${env.PATH}" // Add Node.js to PATH
+    // }
 
     stages {
 
