@@ -35,6 +35,7 @@ pipeline {
                      sh '''
                         if ! command -v postman &> /dev/null; then
                             echo "Postman CLI not found. Installing via npm..."
+                            postman -v
                             npm i postman-collection
                         else
                             echo "Postman CLI is already installed."
