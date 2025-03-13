@@ -32,14 +32,14 @@ pipeline {
          stage('Run API Tests') {
              steps {
                  script {
-                     sh '''
-                        if command -v postman &> /dev/null; then
-                            echo "Postman CLI is already installed"
-                        else
-                            echo "Postman CLI not found. Installing via npm..."
-                            npm install postman
-                        fi
-                    '''
+                    //  sh '''
+                    //     if command -v postman &> /dev/null; then
+                    //         echo "Postman CLI is already installed"
+                    //     else
+                    //         echo "Postman CLI not found. Installing via npm..."
+                    //         npm install postman
+                    //     fi
+                    // '''
                      catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
                          sh '''
                          postman collection run "Postman Collections/PostmanCollectionByTestersTalk.json" \
